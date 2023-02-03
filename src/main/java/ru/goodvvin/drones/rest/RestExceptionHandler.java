@@ -1,4 +1,4 @@
-package ru.goodvvin.drones;
+package ru.goodvvin.drones.rest;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import lombok.Builder;
@@ -8,9 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.goodvvin.drones.rest.ApiError;
-import ru.goodvvin.drones.rest.ErrorCodes;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -41,7 +38,6 @@ public class RestExceptionHandler {
 					collect(Collectors.toList())).
 				build()).
 			build();
-//		return ex.getMessage();
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package ru.goodvvin.drones.rest;
+package ru.goodvvin.drones.rest.drone;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
