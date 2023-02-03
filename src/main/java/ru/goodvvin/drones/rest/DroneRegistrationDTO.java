@@ -19,11 +19,11 @@ public class DroneRegistrationDTO {
 	@Enumerated(EnumType.STRING)
 	private DroneModel model;
 
-	@Min(1)
-	@Max(500)
+	@Min(value = 1, message = "The weight limit must be in the range from 1 to 500")
+	@Max(value = 500, message = "The weight limit must be in the range from 1 to 500")
 	private int weightLimit;
 
-	@Min(1)
-	@Max(100)
+	@Min(value = 0, message = "Battery capacity must be in the range from 0 to 100")
+	@Max(value = 100, message = "Battery capacity must be in the range from 0 to 100")
 	private int battery;
 }
