@@ -1,6 +1,6 @@
 package ru.goodvvin.drones.data.drone;
 
-import ru.goodvvin.drones.rest.DroneRegistrationDTO;
+import ru.goodvvin.drones.rest.drone.DroneRegistrationDTO;
 
 import java.util.List;
 

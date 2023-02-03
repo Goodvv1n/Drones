@@ -1,9 +1,8 @@
 package ru.goodvvin.drones.data.drone;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.goodvvin.drones.rest.DroneRegistrationDTO;
+import ru.goodvvin.drones.rest.drone.DroneRegistrationDTO;
 
 import java.util.List;
 
