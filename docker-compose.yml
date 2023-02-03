@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 
 services:
   drone-service:
@@ -6,8 +6,8 @@ services:
 #    platform: linux/x86_64
     build:
       context: .
-    container_name: app
     environment:
+      SPRING_PROFILE: dev
       POSTGRES_DB: drone_db
       POSTGRES_PASSWORD: drone_pwd
       POSTGRES_USER: drone_user
