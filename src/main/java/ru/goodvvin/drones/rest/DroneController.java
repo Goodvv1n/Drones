@@ -1,22 +1,31 @@
 package ru.goodvvin.drones.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.goodvvin.drones.data.DroneRepository;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import ru.goodvvin.drones.data.drone.Drone;
+import ru.goodvvin.drones.data.drone.DroneService;
 
+import java.util.List;
+
+/**
+ * Controller for drone managing
+ */
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api")
 public class DroneController {
 
-	@Autowired
-	private DroneRepository repository;
+	private final DroneService droneService;
 
-	@GetMapping("/check")
-	public ResponseEntity<String> check(){
-		long count = repository.count();
-		return ResponseEntity.ok(count + " working...");
+	@GetMapping("/drone/all")
+	public ResponseEntity<List<Drone>> getAllDrones(){
+		return ResponseEntity.ok(droneService.getDroneList());
+	}
+
+	@PostMapping("/drone/registration")
+	public ResponseEntity<Drone> registerDrone(@Validated @RequestBody final DroneRegistrationDTO dto) {
+		return ResponseEntity.ok(droneService.registration(dto));
 	}
 }
