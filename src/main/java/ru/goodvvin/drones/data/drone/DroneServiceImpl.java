@@ -7,6 +7,7 @@ import ru.goodvvin.drones.data.DuplicateException;
 import ru.goodvvin.drones.rest.drone.DroneRegistrationDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implementation of service {@link DroneService}
@@ -36,6 +37,18 @@ public class DroneServiceImpl implements DroneService {
 			} else
 				throw ex;
 		}
+	}
+
+	@Override
+	public Optional<Drone> findDrone(Long droneId) {
+		return repository.findById(droneId);
+	}
+
+	@Override
+	public Drone updateState(Drone drone, DroneState state) {
+		Drone savingDrone = repository.findById(drone.getId()).get();
+		savingDrone.setState(state);
+		return repository.save(savingDrone);
 	}
 
 	@Override
