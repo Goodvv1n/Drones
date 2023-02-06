@@ -8,7 +8,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.goodvvin.drones.data.DuplicateException;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -17,6 +20,17 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+
+	@ExceptionHandler(ApiException.class)
+	@ResponseStatus(BAD_REQUEST)
+	public ApiError handleBindException(final ApiException ex) {
+		return ApiError.builder()
+			.code(ErrorCodes.DUPLICATE_ENTITY_ERROR_CODE)
+			.message(ex.getMessage())
+			.details(ex.getDetails())
+			.build();
+	}
+
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(BAD_REQUEST)

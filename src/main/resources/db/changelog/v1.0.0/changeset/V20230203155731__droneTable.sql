@@ -8,5 +8,5 @@ CREATE TABLE drones (
                         state varchar(30) not null,
                         CONSTRAINT drones_pk PRIMARY KEY (id)
 );
-create unique index drones_serial_uindex
+create unique index drones_serial_index
 	on drones (serial);
