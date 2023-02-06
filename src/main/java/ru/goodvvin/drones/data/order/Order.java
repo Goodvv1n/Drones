@@ -1,13 +1,11 @@
 package ru.goodvvin.drones.data.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.goodvvin.drones.data.drone.Drone;
 
@@ -20,7 +18,7 @@ import java.util.List;
  */
 @Data
 @Builder
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Entity
@@ -40,6 +38,7 @@ public class Order {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)
+	@Singular
 	private List<OrderItem> items;
 
 	@OneToOne(fetch = FetchType.LAZY)

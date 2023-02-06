@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 import ru.goodvvin.drones.data.DuplicateException;
+import ru.goodvvin.drones.data.ObjectNotFoundException;
 import ru.goodvvin.drones.rest.drone.DroneRegistrationDTO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -42,6 +44,12 @@ public class DroneServiceImpl implements DroneService {
 	@Override
 	public Optional<Drone> findDrone(Long droneId) {
 		return repository.findById(droneId);
+	}
+
+	@Override
+	public Drone getDrone(Long droneId) {
+		return repository.findById(droneId)
+			.orElseThrow(() -> new ObjectNotFoundException(Map.of("droneId", droneId), "Drone with id did not found"));
 	}
 
 	@Override
