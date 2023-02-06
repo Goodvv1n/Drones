@@ -8,5 +8,5 @@ create table medicine
     image text not null,
     CONSTRAINT medicine_pk PRIMARY KEY (id)
 );
-create unique index medicine_code_uindex
+create unique index medicine_code_index
 	on medicine (code);
