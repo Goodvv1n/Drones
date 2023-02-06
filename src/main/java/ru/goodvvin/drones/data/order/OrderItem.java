@@ -1,12 +1,10 @@
 package ru.goodvvin.drones.data.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.goodvvin.drones.data.medicine.Medicine;
 
 /**
@@ -14,7 +12,7 @@ import ru.goodvvin.drones.data.medicine.Medicine;
  */
 @Data
 @Builder
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Entity
@@ -27,8 +25,8 @@ public class OrderItem {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQUENCE_NAME)
 	@SequenceGenerator(name = ID_SEQUENCE_NAME, sequenceName = ID_SEQUENCE_NAME, allocationSize = 1)
 	private Long id;
-
-	@OneToOne(fetch = FetchType.LAZY)
+	
+	@OneToOne
 	@JoinColumn(name = "medicine_id", referencedColumnName = "id", nullable = false)
 	private Medicine medicine;
 

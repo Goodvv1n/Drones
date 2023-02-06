@@ -22,11 +22,20 @@ public class MedicineController {
 
 	private final MedicineService medicineService;
 
+	/**
+	 * Get medicine list
+	 * @return medicine list
+	 */
 	@GetMapping
-	public ResponseEntity<List<Medicine>> getAllDrones(){
+	public ResponseEntity<List<Medicine>> getAllMedicines(){
 		return ResponseEntity.ok(medicineService.getMedicineList());
 	}
 
+	/**
+	 * Registering medicine
+	 * @param dto medicine data
+	 * @return registered medicine
+	 */
 	@PostMapping("/registration")
 	public ResponseEntity<Medicine> registerDrone(@Validated @RequestBody final MedicineDTO dto) {
 		return ResponseEntity.ok(medicineService.registerMedicine(dto));

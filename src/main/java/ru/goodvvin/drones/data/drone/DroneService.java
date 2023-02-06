@@ -25,6 +25,13 @@ public interface DroneService {
 	Optional<Drone> findDrone(Long droneId);
 
 	/**
+	 * Get drone by identifier
+	 * @param droneId drone identifier
+	 * @return drone
+	 */
+	Drone getDrone(Long droneId);
+
+	/**
 	 * Update drone state
 	 * @param drone drone
 	 * @param newState new drone state

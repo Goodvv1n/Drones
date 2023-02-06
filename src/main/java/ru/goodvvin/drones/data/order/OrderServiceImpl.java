@@ -1,6 +1,7 @@
 package ru.goodvvin.drones.data.order;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.goodvvin.drones.data.ObjectNotFoundException;
@@ -32,6 +33,23 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.save(order);
 	}
 
+	@Override
+	public Order findById(Long orderId) {
+		return orderRepository.findById(orderId)
+			.orElseThrow(() -> new ObjectNotFoundException(Map.of("orderId", orderId), "Order with id did not found"));
+	}
+
+	@Override
+	public Order findByDroneId(Long droneId) {
+		return orderRepository.findByDroneId(droneId)
+			.orElseThrow(() -> new ObjectNotFoundException(Map.of("droneId", droneId), "Order with drone identifier did not found"));
+	}
+
+	@Override
+	public List<Order> getOrderList(Pageable pageable) {
+		return orderRepository.findAll(pageable).getContent();
+	}
+
 	private OrderItem getOrderItem(CreateOrderItemDTO item) {
 		return OrderItem.builder()
 			.medicine(medicineRepository.findById(item.getMedicineId())
@@ -45,8 +63,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	private Drone findDrone(CreateOrderDTO orderDTO) {
-		return droneService.findDrone(orderDTO.getDroneId())
-			.orElseThrow(() -> new ObjectNotFoundException(Map.of("droneId", orderDTO.getDroneId()), "Drone with id did not found"));
+		return droneService.getDrone(orderDTO.getDroneId());
 	}
 
 	private Integer calculateWeight(List<OrderItem> items) {
