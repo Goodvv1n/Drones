@@ -1,7 +1,6 @@
 package ru.goodvvin.drones.data.order;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.goodvvin.drones.data.ObjectNotFoundException;
@@ -31,11 +30,6 @@ public class OrderServiceImpl implements OrderService {
 	public Order createOrder(CreateOrderDTO createOrderDTO) {
 		Order order = collectOrder(createOrderDTO);
 		return orderRepository.save(order);
-	}
-
-	@Override
-	public List<Order> getOrderList(Pageable pageable) {
-		return null;
 	}
 
 	private OrderItem getOrderItem(CreateOrderItemDTO item) {

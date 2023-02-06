@@ -1,6 +1,8 @@
 package ru.goodvvin.drones.data.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +22,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -33,7 +36,7 @@ public class Order {
 
 	@CreationTimestamp
 	@Column(updatable = false)
-	private OffsetDateTime createdAt;
+	private LocalDateTime createdAt;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)

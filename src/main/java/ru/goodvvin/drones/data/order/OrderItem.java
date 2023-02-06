@@ -1,5 +1,7 @@
 package ru.goodvvin.drones.data.order;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +16,7 @@ import ru.goodvvin.drones.data.medicine.Medicine;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Entity
 @Table(name = "order_items")
 public class OrderItem {

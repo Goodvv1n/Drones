@@ -1,23 +1,17 @@
 package ru.goodvvin.drones.rest.order;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.goodvvin.drones.data.order.Order;
 import ru.goodvvin.drones.data.order.OrderService;
-
-import java.util.List;
 
 /**
  * Controller for operations with order
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/order")
+@RequestMapping("/api/orders")
 public class OrderController {
 
 	private final OrderService orderService;
@@ -32,12 +26,4 @@ public class OrderController {
 		return ResponseEntity.ok(orderService.createOrder(order));
 	}
 
-	/**
-	 * Get order list
-	 * @param pageable paging parameters
-	 * @return list of orders
-	 */
-	public ResponseEntity<List<Order>> getOrders(final Pageable pageable) {
-		return ResponseEntity.ok(orderService.getOrderList(pageable));
-	}
 }

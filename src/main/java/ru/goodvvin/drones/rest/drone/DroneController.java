@@ -14,14 +14,19 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/drone")
+@RequestMapping("/api/drones")
 public class DroneController {
 
 	private final DroneService droneService;
 
-	@GetMapping("/all")
+	@GetMapping
 	public ResponseEntity<List<Drone>> getAllDrones(){
 		return ResponseEntity.ok(droneService.getDroneList());
+	}
+
+	@GetMapping("/available")
+	public ResponseEntity<List<Drone>> getAvailableDrones(){
+		return ResponseEntity.ok(droneService.getAvailableDroneList());
 	}
 
 	@PostMapping("/registration")
