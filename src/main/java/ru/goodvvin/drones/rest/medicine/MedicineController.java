@@ -17,12 +17,12 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/medicine")
+@RequestMapping("/api/medicines")
 public class MedicineController {
 
 	private final MedicineService medicineService;
 
-	@GetMapping("/all")
+	@GetMapping
 	public ResponseEntity<List<Medicine>> getAllDrones(){
 		return ResponseEntity.ok(medicineService.getMedicineList());
 	}

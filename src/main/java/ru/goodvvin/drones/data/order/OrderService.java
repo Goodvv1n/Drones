@@ -17,11 +17,4 @@ public interface OrderService {
 	 * @return created order information
 	 */
 	Order createOrder(CreateOrderDTO createOrderDTO);
-
-	/**
-	 * Get order list
-	 * @param pageable paging parameters
-	 * @return list of orders
-	 */
-	List<Order> getOrderList(final Pageable pageable);
 }

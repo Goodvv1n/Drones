@@ -36,4 +36,10 @@ public interface DroneService {
 	 * @return list of registered drones
 	 */
 	List<Drone> getDroneList();
+
+	/**
+	 * Get available drones
+	 * @return list of available drones
+	 */
+	List<Drone> getAvailableDroneList();
 }

@@ -55,4 +55,9 @@ public class DroneServiceImpl implements DroneService {
 	public List<Drone> getDroneList() {
 		return repository.findAll();
 	}
+
+	@Override
+	public List<Drone> getAvailableDroneList() {
+		return repository.findByStateOrderByIdDesc(DroneState.IDLE);
+	}
 }
