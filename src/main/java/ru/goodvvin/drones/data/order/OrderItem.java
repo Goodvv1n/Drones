@@ -1,34 +1,33 @@
-package ru.goodvvin.drones.data.medicine;
+package ru.goodvvin.drones.data.order;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.goodvvin.drones.data.medicine.Medicine;
 
 /**
- * Medicine db entity
+ * Order item db entity
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "medicine")
-public class Medicine {
+@Table(name = "order_items")
+public class OrderItem {
 
-	private static final String ID_SEQUENCE_NAME = "medicine_id_sequence";
+	private static final String ID_SEQUENCE_NAME = "order_item_id_sequence";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQUENCE_NAME)
 	@SequenceGenerator(name = ID_SEQUENCE_NAME, sequenceName = ID_SEQUENCE_NAME, allocationSize = 1)
 	private Long id;
 
-	private String name;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "medicine_id", referencedColumnName = "id", nullable = false)
+	private Medicine medicine;
 
-	private Integer weight;
-
-	private String code;
-
-	private String image;
+	private Integer count;
 }
