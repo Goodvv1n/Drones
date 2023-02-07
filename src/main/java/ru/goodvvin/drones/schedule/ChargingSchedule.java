@@ -20,10 +20,9 @@ public class ChargingSchedule {
 	private final DroneService droneService;
 	private final ChargingService chargingService;
 
-//	@Scheduled(cron = "0 */10 * * * *")
-	@Scheduled(cron = "0 * * * * *")
+	@Scheduled(cron = "0 */10 * * * *")
 	public void changeCharge() {
-		log.info(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME), "charging...");
+		log.info(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME) + ": charging...");
 		charging();
 		expense();
 	}

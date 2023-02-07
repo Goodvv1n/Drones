@@ -11,6 +11,7 @@ import ru.goodvvin.drones.data.drone.DroneState;
 import ru.goodvvin.drones.data.medicine.MedicineRepository;
 import ru.goodvvin.drones.rest.order.CreateOrderDTO;
 import ru.goodvvin.drones.rest.order.CreateOrderItemDTO;
+import ru.goodvvin.drones.rest.order.UpdateOrderStateDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,14 @@ public class OrderServiceImpl implements OrderService {
 	public Order createOrder(CreateOrderDTO createOrderDTO) {
 		Order order = collectOrder(createOrderDTO);
 		return orderRepository.save(order);
+	}
+
+	@Override
+	public Order updateOrderState(Long orderId, UpdateOrderStateDTO updateOrderStateDTO) {
+		Order order = orderRepository.findById(orderId)
+			.orElseThrow(() -> new ObjectNotFoundException(Map.of("orderId", orderId), "Order with id did not found"));
+		order.setDrone(droneService.updateState(order.getDrone(), updateOrderStateDTO.getState()));
+		return order;
 	}
 
 	@Override
@@ -94,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
 		Drone drone = findDrone(orderDTO);
 
 		validateDrone(drone, calculateWeight(items));
-		drone = droneService.updateState(drone, DroneState.DELIVERING);
+		drone = droneService.updateState(drone, DroneState.LOADING);
 
 		return Order.builder()
 			.items(items)

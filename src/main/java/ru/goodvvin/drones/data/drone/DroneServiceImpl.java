@@ -10,6 +10,9 @@ import ru.goodvvin.drones.rest.drone.DroneRegistrationDTO;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+
+import static ru.goodvvin.drones.data.drone.DroneState.*;
 
 /**
  * Implementation of service {@link DroneService}
@@ -21,6 +24,15 @@ public class DroneServiceImpl implements DroneService {
 	private final DroneRepository repository;
 	private final String CONSTRAINT_NAME = "drones_serial_index";
 
+	private static Map<DroneState, Set<DroneState>> transitions = Map.of(
+		IDLE, Set.of(LOADING),
+		LOADING, Set.of(LOADED, DELIVERING),
+		LOADED, Set.of(DELIVERING),
+		DELIVERING, Set.of(DELIVERED),
+		DELIVERED, Set.of(RETURNING),
+		RETURNING, Set.of(IDLE)
+	);
+
 	@Override
 	public Drone registration(DroneRegistrationDTO dto) {
 		try {
@@ -29,7 +41,7 @@ public class DroneServiceImpl implements DroneService {
 				.model(dto.getModel())
 				.battery(dto.getBattery())
 				.weightLimit(dto.getWeightLimit())
-				.state(DroneState.IDLE)
+				.state(IDLE)
 				.build();
 
 			return repository.save(drone);
@@ -54,7 +66,10 @@ public class DroneServiceImpl implements DroneService {
 
 	@Override
 	public Drone updateState(Drone drone, DroneState state) {
-		Drone savingDrone = repository.findById(drone.getId()).get();
+		Drone savingDrone = repository.findById(drone.getId())
+			.orElseThrow(() -> new ObjectNotFoundException(Map.of("droneId", drone.getId()), "Drone with id did not found"));
+		checkStateTransition(savingDrone, state);
+
 		savingDrone.setState(state);
 		return repository.save(savingDrone);
 	}
@@ -66,7 +81,7 @@ public class DroneServiceImpl implements DroneService {
 
 	@Override
 	public List<Drone> getAvailableDroneList() {
-		return repository.findByStateInOrderByIdDesc(List.of(DroneState.IDLE));
+		return repository.findByStateInOrderByIdDesc(List.of(IDLE));
 	}
 
 	@Override
@@ -74,5 +89,15 @@ public class DroneServiceImpl implements DroneService {
 		return repository.findByStateInOrderByIdDesc(
 			List.of(DroneState.DELIVERING, DroneState.DELIVERED, DroneState.RETURNING)
 		);
+	}
+
+	private void checkStateTransition(Drone drone, DroneState state) {
+		if (transitions.get(drone.getState()) == null || !transitions.get(drone.getState()).contains(state)) {
+			throw new ImpossibleStateTransitionException(
+				Map.of(
+					"drone_state", drone.getState().name(),
+					"new_state", state.name()),
+				"Found incorrect state transition");
+		}
 	}
 }
