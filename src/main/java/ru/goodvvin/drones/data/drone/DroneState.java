@@ -1,5 +1,8 @@
 package ru.goodvvin.drones.data.drone;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Drone states list
  */
@@ -10,5 +13,5 @@ public enum DroneState {
 	LOADED,
 	DELIVERING,
 	DELIVERED,
-	RETURNING
+	RETURNING;
 }

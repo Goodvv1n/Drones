@@ -1,6 +1,7 @@
 package ru.goodvvin.drones.rest.order;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,11 @@ public class OrderController {
 	@PostMapping
 	public ResponseEntity<Order> createOrder(@RequestBody CreateOrderDTO order) {
 		return ResponseEntity.ok(orderService.createOrder(order));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Order> updateOrderState(@PathVariable Long id, @RequestBody UpdateOrderStateDTO dto) {
+		return ResponseEntity.ok(orderService.updateOrderState(id, dto));
 	}
 
 	/**
