@@ -9,15 +9,17 @@ public interface ChargingService {
 
 	/**
 	 * Charging drone
-	 * @param droneId drone identifier
+	 *
+	 * @param drone drone
 	 * @param value charge diff
 	 */
-	void chargingDrone(Long droneId, int value);
+	void chargingDrone(Drone drone, int value);
 
 	/**
 	 * Expensing charge
-	 * @param droneId drone identifier
+	 *
+	 * @param drone drone
 	 * @param value charge diff
 	 */
-	void chargeExpense(Long droneId, int value);
+	void chargeExpense(Drone drone, int value);
 }
