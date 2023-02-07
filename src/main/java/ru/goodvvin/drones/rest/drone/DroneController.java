@@ -1,5 +1,8 @@
 package ru.goodvvin.drones.rest.drone;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -7,14 +10,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.goodvvin.drones.data.ObjectNotFoundException;
 import ru.goodvvin.drones.data.charging.ChargingHistory;
 import ru.goodvvin.drones.data.charging.ChargingHistoryService;
 import ru.goodvvin.drones.data.drone.Drone;
 import ru.goodvvin.drones.data.drone.DroneService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -25,6 +26,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/drones")
+@Tag(name = "Drone controller", description = "Drone managing operations")
 public class DroneController {
 
 	private final DroneService droneService;
@@ -35,6 +37,7 @@ public class DroneController {
 	 *
 	 * @return list of drones
 	 */
+	@Operation(summary = "Get list of all drones")
 	@GetMapping
 	public ResponseEntity<List<Drone>> getAllDrones() {
 		return ResponseEntity.ok(droneService.getDroneList());
@@ -46,6 +49,7 @@ public class DroneController {
 	 * @param id drone identifier
 	 * @return drone information
 	 */
+	@Operation(summary = "Get drone information")
 	@GetMapping("/{id}")
 	public ResponseEntity<Drone> getDroneInfo(@PathVariable Long id) {
 		return ResponseEntity.ok(droneService.getDrone(id));
@@ -56,6 +60,7 @@ public class DroneController {
 	 *
 	 * @return list of available drones
 	 */
+	@Operation(summary = "Get list of available drones")
 	@GetMapping("/available")
 	public ResponseEntity<List<Drone>> getAvailableDrones() {
 		return ResponseEntity.ok(droneService.getAvailableDroneList());
@@ -67,6 +72,7 @@ public class DroneController {
 	 * @param dto drone data
 	 * @return registered drone
 	 */
+	@Operation(summary = "Drone registration")
 	@PostMapping("/registration")
 	public ResponseEntity<Drone> registerDrone(@Validated @RequestBody final DroneRegistrationDTO dto) {
 		return ResponseEntity.ok(droneService.registration(dto));
@@ -81,6 +87,7 @@ public class DroneController {
 	 * @param pageable  paging parameters
 	 * @return charging history rows
 	 */
+	@Operation(summary = "Get charging history rows")
 	@GetMapping("/{id}/charging")
 	public ResponseEntity<List<ChargingHistory>> getAllDrones(@PathVariable Long id,
 															  @Param(value = "startDate") LocalDate startDate,

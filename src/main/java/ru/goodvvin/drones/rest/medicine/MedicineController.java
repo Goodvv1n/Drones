@@ -1,5 +1,7 @@
 package ru.goodvvin.drones.rest.medicine;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/medicines")
+@Tag(name = "Medicine controller", description = "Medicine managing operations")
 public class MedicineController {
 
 	private final MedicineService medicineService;
@@ -26,6 +29,7 @@ public class MedicineController {
 	 * Get medicine list
 	 * @return medicine list
 	 */
+	@Operation(summary = "Get medicine list")
 	@GetMapping
 	public ResponseEntity<List<Medicine>> getAllMedicines(){
 		return ResponseEntity.ok(medicineService.getMedicineList());
@@ -36,6 +40,7 @@ public class MedicineController {
 	 * @param dto medicine data
 	 * @return registered medicine
 	 */
+	@Operation(summary = "Medicine registration")
 	@PostMapping("/registration")
 	public ResponseEntity<Medicine> registerDrone(@Validated @RequestBody final MedicineDTO dto) {
 		return ResponseEntity.ok(medicineService.registerMedicine(dto));
