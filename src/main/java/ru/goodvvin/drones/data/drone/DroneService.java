@@ -49,4 +49,10 @@ public interface DroneService {
 	 * @return list of available drones
 	 */
 	List<Drone> getAvailableDroneList();
+
+	/**
+	 * Get moving drones
+	 * @return list of moving drones
+	 */
+	List<Drone> getMovingDrones();
 }
