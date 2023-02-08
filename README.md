@@ -42,4 +42,5 @@ This component add 5% to battery level every 10 minutes. Also this component imm
 ## Possible improvements if I had more time
 1. Using Camunda for managing business process
 2. Devision to microservices
-3. Tests must have!!!
+3. Packaging artefact in docker file   
+4. Tests must have!!!
