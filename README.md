@@ -7,8 +7,12 @@ I am glad to welcome you to my version of Drone Control Service.
 http://localhost:8080/swagger-ui/index.html - Swagger UI for the API of the service
 
 ## Setting up for local development
-There are 2 way launches of the project:
+In first run command:
+```bash
+mvn package
+```
 
+After this you have 2 way launches of the project:
 First way:
 ```bash
 docker-compose up -d
@@ -38,4 +42,5 @@ This component add 5% to battery level every 10 minutes. Also this component imm
 ## Possible improvements if I had more time
 1. Using Camunda for managing business process
 2. Devision to microservices
-3. Tests must have!!!
+3. Packaging artefact in docker file   
+4. Tests must have!!!
