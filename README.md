@@ -7,8 +7,12 @@ I am glad to welcome you to my version of Drone Control Service.
 http://localhost:8080/swagger-ui/index.html - Swagger UI for the API of the service
 
 ## Setting up for local development
-There are 2 way launches of the project:
+In first run command:
+```bash
+mvn package
+```
 
+After this you have 2 way launches of the project:
 First way:
 ```bash
 docker-compose up -d
